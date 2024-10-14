@@ -10,6 +10,7 @@ import com.example.practica3.Alumno;
 import com.example.practica4.Product;
 import com.example.practica4.ProductManager;
 import com.example.practica5.Practica5;
+import com.example.practica6.Practica6;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ public class UI {
         // this.practica2();
         // this.practica3();
         // this.practica4();
-        this.practica5();
+        // this.practica5();
+        this.practica6();
     }
 
     public void init() {
@@ -253,6 +255,48 @@ public class UI {
         JPanel panel = new JPanel(new GridBagLayout());
         Practica5 practica5 = new Practica5(panel);
         tabs.addTab("Practica 5", panel);
+    }
+    
+    public void practica6(){
+
+        Practica6 practica6 = new Practica6();
+
+        LinkedList<Character> letters = new LinkedList<>();
+        JPanel panel = new JPanel(new GridBagLayout());
+        JLabel reversedText = new JLabel("");
+
+        JTextField word = new JTextField();
+        word.setPreferredSize(new Dimension(100, 28));
+
+        JButton button = new JButton("Reverse");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+
+                String text = word.getText(); // extract text from input field
+                text = text.toLowerCase();
+                for(char c : text.toCharArray()){
+                    System.out.println(c);
+                    letters.add(c);
+                }
+                System.out.println("ola amigos");
+                
+                String reversedLetters =  "";
+
+                for(int i = letters.size -1; i >= 0; i--){
+                    System.out.println(i);
+                    reversedLetters = reversedLetters + letters.get(i);
+                }
+                reversedText.setText(reversedLetters);
+
+            }
+        });
+        
+        panel.add(word);
+        panel.add(button);
+        panel.add(reversedText);
+        
+        tabs.addTab("Practica6", panel);
     }
 
 }
