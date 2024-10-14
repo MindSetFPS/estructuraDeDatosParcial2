@@ -1,11 +1,6 @@
 package com.example;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.example.practica1.AddProductActionListener;
 import com.example.practica1.Almacen;
@@ -14,18 +9,14 @@ import com.example.practica2.SplitOddAndEven;
 import com.example.practica3.Alumno;
 import com.example.practica4.Product;
 import com.example.practica4.ProductManager;
+import com.example.practica5.Practica5;
 
 import java.util.List;
 import java.util.ArrayList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.GridBagConstraints;
 
 public class UI {
     JFrame window;
@@ -33,10 +24,11 @@ public class UI {
 
     public UI() {
         this.init();
-        this.practica1();
-        this.practica2();
-        this.practica3();
-        this.practica4();
+        // this.practica1();
+        // this.practica2();
+        // this.practica3();
+        // this.practica4();
+        this.practica5();
     }
 
     public void init() {
@@ -49,20 +41,7 @@ public class UI {
         window.setVisible(true);
     }
 
-    public void practica1() { /*
-                               * Un supermercado nos pide que hagamos una pequeña
-                               * aplicación que almacene los productos pasados por el escáner.
-                               * 
-                               * La aplicación debe almacenar Productos (clase),
-                               * cada producto al crearse contiene una cantidad,
-                               * un precio (estos dos generados aleatoriamente).
-                               * 
-                               * El nombre del producto será básico (producto1, producto2, producto3, etc.),
-                               * 
-                               * permita retirar elementos del mismo almacén de productos
-                               * mostrar la cantidad de productos disponibles y retirados
-                               * (Para resolver este problema utiliza una lista).
-                               */
+    public void practica1() { 
 
         JButton ButtonAddProduct = new JButton("Añadir producto");
         JPanel panel = new JPanel();
@@ -171,7 +150,6 @@ public class UI {
                 alumnos.add(new Alumno(nombre, calificacion));
                 nombreField.setText("");
                 calificacionField.setText("");
-                // mostrarAlumnos(aprobarTextArea);
                 
                 aprobarTextArea.setText("");
                 reprobarTextArea.setText("");
@@ -184,7 +162,6 @@ public class UI {
                         reprobados.add(alumno);
                     }
                 }
-                // mostrarReprobados(reprobarTextArea);
             }
         });
 
@@ -197,14 +174,12 @@ public class UI {
                     if (alumno.getCalificacion() < 7) {
                         reprobarTextArea
                                 .append(alumno.getNombre() + " - Calificación: " + alumno.getCalificacion() + "\n");
-                        // reprobados.add(alumno);
                     }
                 }
             }
         });
 
         datosPanel.add(addButton);
-        // datosPanel.add(calcularButton);
 
         tabs.addTab("Practica 3", datosPanel);
     }
@@ -272,6 +247,12 @@ public class UI {
         });
         
         tabs.addTab("Practica 4", panel);
+    }
+    
+    public void practica5(){
+        JPanel panel = new JPanel(new GridBagLayout());
+        Practica5 practica5 = new Practica5(panel);
+        tabs.addTab("Practica 5", panel);
     }
 
 }
