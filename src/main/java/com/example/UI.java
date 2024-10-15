@@ -30,7 +30,9 @@ public class UI {
         // this.practica3();
         // this.practica4();
         // this.practica5();
-        this.practica6();
+        // this.practica6();
+        // this.practica7();
+        this.Practica8();
     }
 
     public void init() {
@@ -43,7 +45,7 @@ public class UI {
         window.setVisible(true);
     }
 
-    public void practica1() { 
+    public void practica1() {
 
         JButton ButtonAddProduct = new JButton("Añadir producto");
         JPanel panel = new JPanel();
@@ -152,15 +154,17 @@ public class UI {
                 alumnos.add(new Alumno(nombre, calificacion));
                 nombreField.setText("");
                 calificacionField.setText("");
-                
+
                 aprobarTextArea.setText("");
                 reprobarTextArea.setText("");
                 for (Alumno alumno : alumnos) {
-                    if(alumno.getCalificacion() > 7){
-                        aprobarTextArea.append(alumno.getNombre() + " - Calificación: " + alumno.getCalificacion() + "\n");
+                    if (alumno.getCalificacion() > 7) {
+                        aprobarTextArea
+                                .append(alumno.getNombre() + " - Calificación: " + alumno.getCalificacion() + "\n");
                         aprobados.add(alumno);
                     } else {
-                        reprobarTextArea.append(alumno.getNombre() + " - Calificación: " + alumno.getCalificacion() + "\n");
+                        reprobarTextArea
+                                .append(alumno.getNombre() + " - Calificación: " + alumno.getCalificacion() + "\n");
                         reprobados.add(alumno);
                     }
                 }
@@ -185,14 +189,14 @@ public class UI {
 
         tabs.addTab("Practica 3", datosPanel);
     }
-    
-    public void practica4(){
-        
+
+    public void practica4() {
+
         ProductManager productManager = new ProductManager();
-        
+
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        
+
         JLabel labelId = new JLabel("Product ID:");
         JTextField textId = new JTextField();
         textId.setPreferredSize(new Dimension(100, 20));
@@ -207,7 +211,7 @@ public class UI {
 
         JButton createButton = new JButton("Create Product");
         JLabel resultLabel = new JLabel("result label");
-        
+
         panel.add(labelId, gbc);
         panel.add(textId, gbc);
 
@@ -234,10 +238,10 @@ public class UI {
 
                     // Create the product
                     Product newProduct = new Product(id, name, price);
-                    
+
                     productManager.addProduct(newProduct);
                     productManager.sortByName();
-                    
+
                     System.out.println(productManager.displayProducts());
 
                     // Display the created product in the label
@@ -247,21 +251,21 @@ public class UI {
                 }
             }
         });
-        
+
         tabs.addTab("Practica 4", panel);
     }
-    
-    public void practica5(){
+
+    public void practica5() {
         JPanel panel = new JPanel(new GridBagLayout());
         Practica5 practica5 = new Practica5(panel);
         tabs.addTab("Practica 5", panel);
     }
-    
-    public void practica6(){
+
+    public void practica6() {
 
         Practica6 practica6 = new Practica6();
 
-        LinkedList<Character> letters = new LinkedList<>();
+LinkedList<Character> letters = new LinkedList<>();
         JPanel panel = new JPanel(new GridBagLayout());
         JLabel reversedText = new JLabel("");
 
@@ -273,13 +277,47 @@ public class UI {
             @Override
             public void actionPerformed(ActionEvent arg0) {
 
-                String text = word.getText(); // extract text from input field
+String text = word.getText(); // extract text from input field
                 text = text.toLowerCase();
-                for(char c : text.toCharArray()){
+                for (char c : text.toCharArray()) {
                     System.out.println(c);
                     letters.add(c);
                 }
-                System.out.println("ola amigos");
+
+                String reversedLetters = "";
+
+                for (int i = letters.size - 1; i >= 0; i--) {
+                    System.out.println(i);
+                    reversedLetters = reversedLetters + letters.get(i);
+                }
+                reversedText.setText(reversedLetters);
+            }
+        });
+        panel.add(word);
+        panel.add(button);
+        panel.add(reversedText);
+
+        tabs.addTab("Practica6", panel);
+    }
+
+    public void practica7(){
+        JPanel panel = new JPanel();
+        LinkedList<Character> letters = new LinkedList<>();
+        JLabel reversedText = new JLabel("");
+
+        JTextField word = new JTextField();
+        word.setPreferredSize(new Dimension(100, 28));
+
+        JButton button = new JButton("Reverse");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                String text = word.getText(); // extract text from input field
+                text = text.replace(" ", "");
+                text = text.toLowerCase();
+                for(char c : text.toCharArray()){
+                    letters.add(c);
+                }
                 
                 String reversedLetters =  "";
 
@@ -287,16 +325,27 @@ public class UI {
                     System.out.println(i);
                     reversedLetters = reversedLetters + letters.get(i);
                 }
+                
+                System.out.println(reversedLetters + "===" + text);
+                if(reversedLetters.equals(text)){
+                    System.out.println("ES PALINDROMO");
+                }
                 reversedText.setText(reversedLetters);
-
             }
         });
-        
         panel.add(word);
         panel.add(button);
         panel.add(reversedText);
-        
-        tabs.addTab("Practica6", panel);
-    }
 
+        tabs.addTab("Practica7", panel);
+    }
+    public void Practica8(){
+
+        // Realiza  una  aplicación  que  mediante  pilas  sume  números  enteros  muy  grandes,  puedes 
+        // leer los números como string, ingresarlos cada uno de ellos a una pila y realizar la suma.
+        
+        JPanel panel = new JPanel();
+        tabs.addTab("Practica8", panel);
+
+    }
 }

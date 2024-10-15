@@ -13,7 +13,7 @@ public class Letter {
         this.character = letter;
         this.label = label;
     }
-    
+
     public void addWord(String newWorld){
         wordList.add(newWorld);
         String text = character + ": " + "";

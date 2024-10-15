@@ -9,15 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Practica5 {
-    /* Crea una aplicación para almacenar palabras (solicitadas al usuario),
-     * la aplicación debe de separar las palabras
-     * y dividirlas en listas clasificadas por la primera
-     * letra de la palabra es decir todas las palabras que coincidan en la primera letra,
-     * se muestra un ejemplo:
-     * Lista1: Fresa, Fresca, Orilla, Oso, Peso, Pez
-     * Lista2: Fresa, Fresca
-     * Lista3: Orilla, Oso
-     * Lista4: Peso, Pez                                                             */
     public JPanel panel;
     public LinkedList<String> globalWordList;
     public LinkedList<Letter> alphabet;
