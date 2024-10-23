@@ -9,21 +9,21 @@ public class Cliente {
     private String tipoMovimiento;
     private LocalDateTime horaLlegada;
 
-    // Constructor vacío para inicializar atributos con valores por defecto
-    public Cliente() {}
-
     // Constructor con parámetros
-    public Cliente(int numeroTurno, String nombre, String tipoMovimiento, String horaLlegada) {
+    public Cliente(int numeroTurno, String nombre, String tipoMovimiento) {
         this.numeroTurno = numeroTurno;
         this.nombre = nombre;
         this.tipoMovimiento = tipoMovimiento;
 
         DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        this.horaLlegada = LocalDateTime.parse(horaLlegada, formatoHora);
+        this.horaLlegada = LocalDateTime.now();
+        this.horaLlegada.format(formatoHora);
+        
+        System.out.println(this.horaLlegada);
     }
 
     // Getters y setters
-    public int getNumeroTurno() {
+    public int getTurno() {
         return numeroTurno;
     }
 
@@ -39,7 +39,7 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getTipoMovimiento() {
+    public String getMovimiento() {
         return tipoMovimiento;
     }
 

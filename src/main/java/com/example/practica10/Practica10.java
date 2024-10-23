@@ -1,6 +1,10 @@
 package com.example.practica10;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import com.example.Stack;
+
 import java.awt.*;
 
 // Desarrolle un programa que administre una Cola de una ventanilla de un banco que tenga la siguiente forma:  
@@ -35,20 +39,27 @@ import java.awt.*;
 
 public class Practica10 {
 
+    String[][] tableData;
     JPanel panel;
+    Stack<Cliente> clientStack;
+    JTextField turnField;
+    JTextField clientTextField;
+    JComboBox<String> movimientosDropwdown;
+    DefaultTableModel tableModel;
 
     public Practica10(JPanel panel) {
         this.panel = panel;
         this.customerData();
         this.createButtons();
         this.createTable();
+        // this.createDummyData();
     }
 
     public void customerData() {
-        JTextField turnField = new JTextField();
-        JTextField clinTextField = new JTextField();
+        this.turnField = new JTextField();
+        this.clientTextField = new JTextField();
 
-        String[] colors = {
+        String[] movimientos = {
                 "Pago de servicio",
                 "Deposito",
                 "Retiro",
@@ -56,10 +67,10 @@ public class Practica10 {
                 "Consulta de saldo"
         };
 
-        JComboBox<String> colorBox = new JComboBox<>(colors);
+        this.movimientosDropwdown = new JComboBox<>(movimientos);
 
-        colorBox.addActionListener(e -> {
-            Object selection = colorBox.getSelectedItem();
+        this.movimientosDropwdown.addActionListener(e -> {
+            Object selection = this.movimientosDropwdown.getSelectedItem();
             System.out.println("selected" + selection);
         });
 
@@ -68,8 +79,8 @@ public class Practica10 {
         subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.Y_AXIS));
         subPanel.setBorder(BorderFactory.createTitledBorder("Datos del cliente"));
         subPanel.add(turnField);
-        subPanel.add(clinTextField);
-        subPanel.add(colorBox);
+        subPanel.add(clientTextField);
+        subPanel.add(this.movimientosDropwdown);
 
         this.panel.add(subPanel);
     }
@@ -77,11 +88,37 @@ public class Practica10 {
     public void createButtons() {
 
         JButton addToQue = new JButton("Agregar a la cola");
+        addToQue.addActionListener(arg0 -> {
+            Cliente client = new Cliente(
+                    Integer.parseInt(this.turnField.getText()),
+                    this.clientTextField.getText(),
+                    this.movimientosDropwdown.getSelectedItem().toString());
+
+            this.tableModel.addRow(new Object[] { client.getNombre(), client.getHoraLlegada(), client.getTurno(),
+                    client.getMovimiento() });
+            
+            this.clientTextField.setText("");
+            this.turnField.setText( String.valueOf(this.tableModel.getRowCount() + 1));
+
+        });
+
         JButton serveWindow = new JButton("Atender en ventanilla");
+
+        serveWindow.addActionListener(arg1 -> {
+            if (this.tableModel.getRowCount() > 0) {
+                JOptionPane.showMessageDialog(
+                    addToQue, 
+                    this.tableModel.getValueAt(0, 0), 
+                    "Message title", 
+                    JOptionPane.OK_OPTION
+                );
+                this.tableModel.removeRow(0);
+            }
+        });
+
         JButton exit = new JButton("Salida del sistema");
 
         JPanel subPanel = new JPanel();
-
         subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.Y_AXIS));
 
         subPanel.add(addToQue);
@@ -91,36 +128,29 @@ public class Practica10 {
         this.panel.add(subPanel);
     }
 
+    private void addRowToTable(String[][] tableData, Cliente client) {
+        String[] row = { String.valueOf(client.getTurno()), client.getNombre(), client.getMovimiento(), "null" };
+        if (tableData == null) {
+            String[][] newTableData = new String[1][4];
+            this.tableData = newTableData;
+            newTableData[newTableData.length - 1] = row;
+            System.out.println("table data initialized");
+        } else {
+            String[][] newTableData = new String[tableData.length + 1][tableData[0].length];
+            System.arraycopy(tableData, 0, newTableData, 0, tableData.length);
+            newTableData[newTableData.length - 1] = row;
+            this.tableData = newTableData;
+            // return newTableData;
+        }
+    }
+
     public void createTable() {
+        JTable table = new JTable(
+                new DefaultTableModel(new Object[] { "turno", "nombre", "movimiento", "llegada" }, 0));
 
-        Object[][] data = {
-                { 
-                    "Kathy", "Smith", "Snowboarding", new Integer(5), new Boolean(false) 
-                },
-                { 
-                    "John", "Doe", "Rowing", new Integer(3), new Boolean(true)
-                },
-                { 
-                    "Sue", "Black", "Knitting", new Integer(2), new Boolean(false) 
-                },
-                { 
-                    "Jane", "White","Speed reading", new Integer(20), new Boolean(true) 
-                },
-                { 
-                    "Joe", "Brown", "Pool", new Integer(10), new Boolean(false) 
-                }
-        };
+        this.tableModel = (DefaultTableModel) table.getModel();
 
-        String[] columnNames = {
-                "turno",
-                "nombre",
-                "movimiento",
-                "llegada",
-        };
-
-        JTable table = new JTable(data, columnNames);
         JScrollPane scrollPane = new JScrollPane(table);
-
         this.panel.add(scrollPane);
     }
 }
