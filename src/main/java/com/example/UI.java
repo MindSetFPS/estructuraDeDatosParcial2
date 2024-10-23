@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import com.example.practica1.AddProductActionListener;
 import com.example.practica1.Almacen;
+import com.example.practica10.Practica10;
 import com.example.practica2.RandomNumberListGenerator;
 import com.example.practica2.SplitOddAndEven;
 import com.example.practica3.Alumno;
@@ -11,8 +12,11 @@ import com.example.practica4.Product;
 import com.example.practica4.ProductManager;
 import com.example.practica5.Practica5;
 import com.example.practica6.Practica6;
+import com.example.practica8.Practica8;
+import com.example.practica9.Replacer;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.ArrayList;
 
 import java.awt.*;
@@ -32,7 +36,9 @@ public class UI {
         // this.practica5();
         // this.practica6();
         // this.practica7();
-        this.Practica8();
+        // this.Practica8();
+        // this.practica9();
+        this.practica10();
     }
 
     public void init() {
@@ -265,7 +271,7 @@ public class UI {
 
         Practica6 practica6 = new Practica6();
 
-LinkedList<Character> letters = new LinkedList<>();
+        LinkedList<Character> letters = new LinkedList<>();
         JPanel panel = new JPanel(new GridBagLayout());
         JLabel reversedText = new JLabel("");
 
@@ -277,7 +283,7 @@ LinkedList<Character> letters = new LinkedList<>();
             @Override
             public void actionPerformed(ActionEvent arg0) {
 
-String text = word.getText(); // extract text from input field
+                String text = word.getText(); // extract text from input field
                 text = text.toLowerCase();
                 for (char c : text.toCharArray()) {
                     System.out.println(c);
@@ -300,7 +306,7 @@ String text = word.getText(); // extract text from input field
         tabs.addTab("Practica6", panel);
     }
 
-    public void practica7(){
+    public void practica7() {
         JPanel panel = new JPanel();
         LinkedList<Character> letters = new LinkedList<>();
         JLabel reversedText = new JLabel("");
@@ -315,19 +321,19 @@ String text = word.getText(); // extract text from input field
                 String text = word.getText(); // extract text from input field
                 text = text.replace(" ", "");
                 text = text.toLowerCase();
-                for(char c : text.toCharArray()){
+                for (char c : text.toCharArray()) {
                     letters.add(c);
                 }
-                
-                String reversedLetters =  "";
 
-                for(int i = letters.size -1; i >= 0; i--){
+                String reversedLetters = "";
+
+                for (int i = letters.size - 1; i >= 0; i--) {
                     System.out.println(i);
                     reversedLetters = reversedLetters + letters.get(i);
                 }
-                
+
                 System.out.println(reversedLetters + "===" + text);
-                if(reversedLetters.equals(text)){
+                if (reversedLetters.equals(text)) {
                     System.out.println("ES PALINDROMO");
                 }
                 reversedText.setText(reversedLetters);
@@ -339,13 +345,77 @@ String text = word.getText(); // extract text from input field
 
         tabs.addTab("Practica7", panel);
     }
-    public void Practica8(){
 
-        // Realiza  una  aplicación  que  mediante  pilas  sume  números  enteros  muy  grandes,  puedes 
-        // leer los números como string, ingresarlos cada uno de ellos a una pila y realizar la suma.
-        
+    public void Practica8() {
         JPanel panel = new JPanel();
+        Practica8 practica8 = new Practica8(panel);
+
         tabs.addTab("Practica8", panel);
 
+    }
+
+    public void practica9() {
+        Stack stack = new Stack();
+        
+        JTextField stackInput = new JTextField();
+        JTextField oldNumberInput = new JTextField();
+        JTextField newNumberInput = new JTextField();
+
+        stackInput.setPreferredSize(new Dimension(100, 28));
+        oldNumberInput.setPreferredSize(new Dimension(100, 28));
+        newNumberInput.setPreferredSize(new Dimension(100, 28));
+
+        JButton addButton = new JButton("añadir");
+        JButton replaceButton = new JButton("reemplazar");
+
+
+        JLabel text = new JLabel("");
+        JLabel newNNumberLabel = new JLabel("Numero nuevo");
+        JLabel oldNumberLabel = new JLabel("Numero viejo");
+        JPanel panel = new JPanel();
+
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                int number = Integer.parseInt(stackInput.getText()); 
+                stack.push(number);
+                text.setText(text.getText() + ", " + number);
+                stack.printNodes(text);
+            }
+        });
+        
+        replaceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                Replacer replacer = new Replacer();
+
+                replacer.replace(stack, Integer.parseInt(oldNumberInput.getText()), Integer.parseInt(newNumberInput.getText()));
+                
+                stack.printNodes(text);
+            }
+        });
+
+
+
+        panel.add(stackInput);
+        panel.add(addButton);
+
+        panel.add(newNNumberLabel);
+        panel.add(newNumberInput);
+
+        panel.add(oldNumberLabel);
+        panel.add(oldNumberInput);
+        panel.add(replaceButton);
+        panel.add(text);
+
+        tabs.addTab("Practica 9 ", panel);
+    }
+    
+    public void practica10(){
+        JPanel panel = new JPanel();
+        Practica10 practica10 = new Practica10(panel);
+        
+        tabs.addTab("Pratica 10", panel);
     }
 }

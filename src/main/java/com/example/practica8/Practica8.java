@@ -36,6 +36,7 @@ public class Practica8 {
 
         // 2. Convert each number no a list
         JButton button = new JButton("sumar");
+        JLabel result = new JLabel();
 
         button.addActionListener(new ActionListener() {
             @Override
@@ -51,10 +52,14 @@ public class Practica8 {
 
                 sumNumbers(firstStack.pop(), secondStack.pop());
 
+                String resultText = "El resultado es ";
                 System.out.print("el resultado es: ");
                 while (resultStack.size != 0) {
-                    System.out.print(resultStack.pop());
+                    // System.out.print(resultStack.pop());
+                    resultText = resultText + resultStack.pop();
                 }
+                
+                result.setText(resultText);
             }
         });
         // 3. Sum numbers
@@ -62,6 +67,7 @@ public class Practica8 {
         panel.add(firstNumber);
         panel.add(secondNumber);
         panel.add(button);
+        panel.add(result);
     }
 
     public void sumNumbers(int firstNumber, int secondNumber) {

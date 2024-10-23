@@ -1,21 +1,11 @@
 package com.example;
 
+import javax.swing.*;;
+
 public class Stack {
 
     public int size = 0;
-
-    // Node class representing each element in the stack
-    private static class Node {
-        int data;
-        Node next;
-
-        public Node(int data) {
-            this.data = data;
-            this.next = null;
-        }
-    }
-
-    private Node top; // Reference to the top node of the stack
+    public StackNode top; // Reference to the top node of the stack
 
     /**
      * Constructor for an empty Stack.
@@ -31,7 +21,7 @@ public class Stack {
      */
     public void push(int data) {
         this.size++;
-        Node newNode = new Node(data);
+        StackNode newNode = new StackNode(data);
         if (top == null) {
             top = newNode;
         } else {
@@ -80,5 +70,36 @@ public class Stack {
     
     public int getSize(){
         return this.size;
+    }
+    
+    public StackNode getTop(){
+        return this.top;
+    }
+    
+    public void printNodes(JLabel text){
+        text.setText("");
+        if(top == null){
+            System.out.println("Stack is empty");
+            return;
+        }else{
+            System.out.println("Stack Contents: ");
+            text.setText("");
+            StackNode current = top;
+
+            while(current != null){
+                if (current.next == null){
+
+                    System.out.print(current.data);
+                    text.setText(text.getText() + current.data);
+                }
+                else{
+                    System.out.print(current.data + " -> ");
+                    text.setText(text.getText() + current.data + " -> ");
+                }
+
+                current = current.next;
+            }
+           System.out.println();
+        }
     }
 }
