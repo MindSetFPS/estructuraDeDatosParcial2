@@ -128,22 +128,6 @@ public class Practica10 {
         this.panel.add(subPanel);
     }
 
-    private void addRowToTable(String[][] tableData, Cliente client) {
-        String[] row = { String.valueOf(client.getTurno()), client.getNombre(), client.getMovimiento(), "null" };
-        if (tableData == null) {
-            String[][] newTableData = new String[1][4];
-            this.tableData = newTableData;
-            newTableData[newTableData.length - 1] = row;
-            System.out.println("table data initialized");
-        } else {
-            String[][] newTableData = new String[tableData.length + 1][tableData[0].length];
-            System.arraycopy(tableData, 0, newTableData, 0, tableData.length);
-            newTableData[newTableData.length - 1] = row;
-            this.tableData = newTableData;
-            // return newTableData;
-        }
-    }
-
     public void createTable() {
         JTable table = new JTable(
                 new DefaultTableModel(new Object[] { "turno", "nombre", "movimiento", "llegada" }, 0));
