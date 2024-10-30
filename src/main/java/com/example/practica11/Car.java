@@ -7,24 +7,29 @@ public class Car {
     ImageIcon icon;
     public JLabel label = new JLabel();
     String imagePath;
+    String[] cars = {"black" ,"blue","brown", "gray","green","orange","red","white"};
+    String color = generateColor();
+    
+    public String generateColor(){
+        return cars[(int)(Math.random()*cars.length)];
+    }
 
-    public Car(String imagePath, JPanel panel) {
-        this.imagePath = imagePath;
-        this.icon = new ImageIcon(new ImageIcon(getClass().getResource(imagePath)).getImage()
+    public Car(JPanel panel) {
+        this.icon = new ImageIcon(new ImageIcon(getClass().getResource("no-color.png")).getImage()
                 .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 
         this.label.setIcon(icon);
-        this.label.setText(imagePath);
+        this.label.setText(color);
 
         panel.add(this.label);
     }
 
-    public Car(String imagePath) {
-        this.imagePath = imagePath;
-        this.icon = new ImageIcon(new ImageIcon(getClass().getResource(imagePath)).getImage()
+    public Car(String color) {
+        this.color = color;
+        this.icon = new ImageIcon(new ImageIcon(getClass().getResource("no-color.png")).getImage()
                 .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 
-        this.label.setIcon(icon);
-        this.label.setText(imagePath);
+        // this.label.setIcon(icon);
+        // this.label.setText(imagePath);
     }
 }

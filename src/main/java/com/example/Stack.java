@@ -103,4 +103,28 @@ public class Stack<T> {
             System.out.println();
         }
     }
+    
+    public String printNodes() {
+        StringBuilder sb = new StringBuilder();
+    
+        if (top == null) {
+            return "Stack is empty";
+        } else {
+            Node<T> current = top;
+    
+            while (current != null) {
+                if (current.next == null) {
+    
+                    sb.append(current.data).append("\n");
+                } else {
+                    sb.append(current.data).append(" -> ");
+                }
+    
+                current = current.next;
+            }
+        }
+    
+        return sb.toString();
+    }
+    
 }
