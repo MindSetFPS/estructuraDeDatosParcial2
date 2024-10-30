@@ -1,16 +1,21 @@
 package com.example.practica10;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+// import com.example.LinkedList;
 import com.example.Stack;
 import java.time.LocalDateTime;
+import java.util.Queue;
 import java.time.Duration;
+import java.util.LinkedList;
 import java.time.format.DateTimeFormatter;
 
 
 public class Practica10 {
     String[][] clientTableData;
     JPanel panel;
-    Stack<Cliente> clientStack;
+    // Stack<Cliente> clientStack;
+    Queue<Cliente> clientQueue;
     JTextField turnField;
     JTextField clientTextField;
     JComboBox<String> movimientosDropwdown;
@@ -18,7 +23,9 @@ public class Practica10 {
 
     public Practica10(JPanel panel) {
         this.panel = panel;
-        this.clientStack = new Stack<>();
+        // this.clientStack = new Stack<>();
+        this.clientQueue = new LinkedList<>();
+
         this.customerData();
         this.createButtons();
         this.createTable();
@@ -47,7 +54,8 @@ public class Practica10 {
         addToQue.addActionListener(arg0 -> {
             Cliente client = new Cliente(Integer.parseInt(this.turnField.getText()), this.clientTextField.getText(),this.movimientosDropwdown.getSelectedItem().toString());
             this.clientTableModel.addRow(new Object[] { client.getTurno(), client.getNombre(), client.getMovimiento(),client.getHoraLlegada()});
-            clientStack.push(client);
+            // clientStack.push(client);
+            clientQueue.add(client);
             this.clientTextField.setText("");
             this.turnField.setText(String.valueOf(this.clientTableModel.getRowCount()));
         });
@@ -66,8 +74,12 @@ public class Practica10 {
                         "Usuario atendido.",
                         JOptionPane.OK_OPTION);
                 this.clientTableModel.removeRow(0);
-                clientStack.pop();
-                System.out.println(clientStack.printNodes());
+                // clientStack.pop();
+                clientQueue.poll();
+                for (Cliente cliente : clientQueue) {
+                    System.out.println(cliente.toString());
+                }
+                // System.out.println(clientStack.printNodes());
             }
         });
 
