@@ -14,8 +14,19 @@ class Car {
     public Car(String licensePlate, String owner) {
         this.licensePlate = licensePlate;
         this.owner = owner;
-        this.leaveTime = arrivalTime.plusSeconds((int) Math.floor(Math.random() * 1000000 + 1));
-        totalTime = Duration.between(arrivalTime, leaveTime).toSeconds();
+        int randum = (int) Math.floor(Math.random() * 1000 + 1);
+            System.out.print( "rand num = " + randum);
+            this.leaveTime = arrivalTime.plusSeconds(randum);
+            totalTime = Duration.between( leaveTime , arrivalTime).toSeconds();
+
+
+            Duration diference = Duration.between(arrivalTime, leaveTime);
+            String durationString = diference.toString().replace("PT", " ").replace("H", " horas, ").replace("M", " minutos, ").replace("S", " segundos.");
+            
+            System.out.println(durationString);
+
+            System.out.println( leaveTime  + " - " + arrivalTime  );
+            System.out.print( "tiempo total: " + totalTime);
     }
 
 /*     public int calculateParkedSeconds() {
@@ -28,6 +39,6 @@ class Car {
 
     @Override
     public String toString() {
-        return "Car [License Plate: " + licensePlate + "owner:" + owner  + ", Arrival Time: " + arrivalTime  +   "departure time:" + leaveTime + "to pay: $" + (totalTime * 2) + ".00" + "]";
+        return "License Plate: " + licensePlate + "\n owner:" + owner  + "\n Arrival Time: " + arrivalTime  +   "\n departure time:" + leaveTime + "\n to pay: $" + ( Math.abs(totalTime)  * 2) + ".00" + "]\n \n";
     }
 }

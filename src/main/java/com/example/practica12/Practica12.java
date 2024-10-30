@@ -11,11 +11,8 @@ public class Practica12 {
     
     public Practica12(JPanel panel, JFrame frame){
        this.panel = panel; 
-
        JMenuBar menuBar = new JMenuBar();
-
        JMenu menu = new JMenu("Menu");
-       
        JMenuItem input = new JMenuItem("Entrada de autos");
        input.addActionListener(arg0 ->{
            JPanel dialogPanel = new JPanel();
